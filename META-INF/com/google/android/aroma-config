@@ -113,6 +113,11 @@ selectbox(
   #--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
 
 
+   "Update",		"Please update to the latest distro if you haven't allready",	2,		
+   "Install 1.1.2",	"Update system to 1.1.2",					0,
+   "Skip",		"I have allready updated, no need for this.",			1,
+   
+  ##################
    "ADB",		"Please select ADB flavour",					2,		
    "ADB Usb",		"ADB through Usb (Secure)",					1,
    "ADB Wifi",		"ADB through Wifi (Insecure if used on open Wifi)",		0,
