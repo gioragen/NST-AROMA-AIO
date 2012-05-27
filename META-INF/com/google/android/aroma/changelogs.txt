@@ -1,0 +1,118 @@
+Version 3.1.0
+- Font Changer Added
+- Stock Font Added To Font Changer
+- Ubuntu Font Added To Font Changer
+- Walkway Font Added To Font Changer
+- LeeDroid Compatible
+- CoreDroid Compatible
+- Exodized Compatible(May brick theme)
+- RoMeOSX Compatible
+
+Version 3.0.0
+- All Mods Are Now Compatible With 1.28.401.9 ROMS
+- Deleted Roms With 1.26.401.2. After 1.28 update I will add roms back
+- Long Press Home To Menu For Modded Pack Re-Added
+- Updater Binaries Updated To AROMA Installer 2.0.0 ALPHA 7!(This means million changes :))
+- Updated Battery Percentage Icons With HD Ones (Thanks to Shen Ye)
+- RomAur ROM Compatability Added
+- Roboto Font Used as Small Font
+- HTC Font Used as Big Font
+- Font sizes is now changing in every screen
+- Re-Calibrated Touch Screen
+- Mod Selection Menu Changed
+- Splash Added
+- Villain ROM Compatability Added
+- AK'47 ROM Compatability Added
+- Updater Script ReWritten
+- Most Parts Of AROMA Configuration Re-Written
+- Files optimized for smaller size
+- Bug Fixes in Scripts
+- Much More But I Don't Remember
+Version 2.7.6
+- Bug Fixed (Selection doesnt show core droid and maximus)
+Version 2.7.5
+- HTC One maXimus Compatible
+- CoreDroid Compatible
+Version 2.7.0
+- Advanced Menu Mod Disabled For Modded Pack Users Because Of Issues
+- Added Reboot Options To Advanced Power Menu
+- Bravia Engine Script Fixed (Thanks to mar3k)
+- menu.prop Bug Fixed
+- Compatible With LeeDroid Tweaks 1.0+ You Can Control Volume Wake From There
+Version 2.6.0
+- New Menu Button Mod Option (Long Press Home as Menu)(Compatible with stock pack and modded pack)
+- Added Stock Rom Choice!(1.26.401.2)
+- Added JR0iD Exodus in ROM Choice
+- Delete Boot Sound Mod Fixes
+- LeeDroid Compatibility Bugs Fixed
+- Updater-Script Bug Fixes
+Version 2.5.0
+- Now Compatible With EVERY Rom!(I will add every rom in coming updates)
+- Bravia Engine Mod Updated
+- Menu Button Mod Updated
+- Compatible With Official ClockWorkMod Recovery 5.8.2.4
+Version 2.4.0
+- Now We Have Our Own Framework! (I have just decompiled the android.policy.jar and merged the newest menu button mod and advanced power menu)
+- Stock Boot Sound Mod Added
+- Script Changes
+- Some Changes in Sense Theme
+Version 2.3.0
+- Modded files for more little size(Because this update was 41mb before modding)
+- Very Important Bugs Fixed
+- Updater Script Changes
+- Sony Bravia Engine Script Changes
+- Worked on Aroma Script for Better Experience
+- Volume Wake is deleted for temporary while. (Because I'm working to make it compatible with other mods)
+Version 2.2.0
+- Recent Apps Button Stock Battery Icons and Stock Power Menu Mod Merged into Stock Pack
+- Menu Button Percentage Battery Icons and Advanced Power Menu Mod Merged into 1 Pack
+- Boot Sound Delete Mod Added
+Version 2.1.0
+- New Skip Selection Added To Mods
+- More Than 10 Bugs Fixed
+- LeeDroid Rom is Now Compatible (Down Animation is still not compatible)
+- Fonts Are Now Bigger (Thanks to LeeDroid)
+- Battery Percentage Update (Thanks to LeeDroid)
+- Re-Calibrated Touch Screen For Better Experience
+Version 2.0.0
+- Fully New Base
+- All scripts written from scratch
+- Updated to AROMA 1.63
+- Too much bugs fixed(Not mod bugs, update zip bugs)
+Version 1.7.0
+- New Aroma Base
+- Percentage Battery Mod Added
+- Bugs fixed in scripts
+- New Sense Theme Added
+Version 1.6.0
+- Fixed Boot Animation Edges Problem (Almost not visible)
+- Now just 11 MB!
+Version 1.5.1
+- Fixed Menu Button Problems
+Version 1.5.0
+- Deleted Launchers (Because they are not a mod :) )
+- Pack is now just 17 MB
+- Updated Menu Button Mod. Now you can long press home to get recent apps menu.
+Version 1.4.0
+- Added support to ROMeOSx
+- Added Sony Bravia Engine
+Version 1.3.0
+- Added Volume Wake Options (Enable and Disable)
+- Changed updater-script (will show more information)
+Version 1.1.0
+- Replaced AOSP Launcher with Trebuchet Launcher From CyanogenMod 9
+- Updated Nova Launcher
+- Updated Apex Launcher
+- Modded Nova Launcher for Little Size
+- Modded Apex Launcher for Little Size
+- Modded Trebuchet Launcher for Little Size
+- Worked on Boot Animations
+Version 1.0
+-Initial Release
+-Added AOSP Launcher
+-Added Nova Launcher
+-Added Apex Launcher
+-Added Black HTC Boot Animation
+-Added Stock HTC Boot Animation
+-Added Menu Button Mods
+-Added AOSP Boot Animation
