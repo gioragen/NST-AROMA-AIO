@@ -1,4 +1,4 @@
-N2G-AROMA-AIO
+NST-AROMA-AIO
 =============
 
-AROMA based pack for NTG, includes: ABD, Root, Busybox, Kernel, Mods, Gapps and Apps.
+AROMA based pack for NST, includes: ABD, Root, Busybox, Kernel, Mods, Gapps and Apps.
