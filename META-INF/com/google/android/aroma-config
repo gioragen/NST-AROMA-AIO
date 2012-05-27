@@ -48,129 +48,98 @@ ini_set("customkeycode_back",   "92");
 splash(4000, "lcmod");
 
 theme("sense");
-calibrate("1.4035","35","1.3169","35","yes");
+
+# calibrate("-","-","-","-","yes");
+
  fontresload( "0", "ttf/roboto.ttf", "14" );
   fontresload( "1", "ttf/arkitech.ttf", "18" );
+
 viewbox(
-  "LC Mod Pack",
+#-- Title
+  "NST-AROMA-AIO",
+
+#-- Sub Title
     "\n\n\n\n\n"+
-    "          	Welcome to HTC One X Mod Pack by Leventccc\n"+
+    "          	Welcome to NST-AROMA-AIO by eded333\n"+
 	"      \n\n"+
     "\n\n\n"+
-    "Thanks For Using My Mod!",
+    "Thanks for using my Mod!!",
+
+#-- Icon: <AROMA Resource Dir>/icons/welcome.png or <ThemeDir>/icon.welcome.png
   "@welcome"
 );
+
  fontresload( "0", "ttf/Roboto.ttf", "11" );
+
 textbox(
+#-- Title
   "Changelog",
-  "LC Mod Pack Changelog",
+
+#-- Sub Title
+  "NST-AROMA-AIO Changelog",
+
+#-- Icon: <AROMA Resource Dir>/icons/update.png or <ThemeDir>/icon.update.png
   "@update",
+
   readfile_aroma("changelogs.txt")
 );
- fontresload( "0", "ttf/Roboto.ttf", "13" );
-selectbox(
-  "ROM",
-  "Please Select Your Rom:",
-  "@confirm",
-  "rom.prop",
-  
-   "Android Revolution HD Based","Android Revolution HD 3.0.0+",1,
-  "InsertCoin One X Based","InsertCoid One X Based 3.2.0+",0,
-  "HTC One maXimus","HTC One maXimus 1.1+",0,
-  "RomAur One X","v1.5+",0,
-  "Stock Roms","Stock Roms With 1.28.401.9",0,
-  "Villain Rom","Villain Rom 1.1.0+",0,
-  "AK'47","AK'47 1.0+",0,
-  "LeeDroid One Xtreme","V4.0.0+",0,
-  "JDR0iD eXoDiZeD","2.1.4+",0,
-  "CoreDroid","2.0+",0,
-  "RoMeOSx","1.2.0+",0
-  );
-  
 
-   fontresload( "0", "ttf/Roboto.ttf", "9" );
-  selectbox(
-  "Mods",
+
+fontresload( "0", "ttf/Roboto.ttf", "9" );
+selectbox(
+#-- Title
+"Mods",
+
+#-- Sub Title
   "Please Select Mods For Your Device",
+
+#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.personalize.png
   "@personalize",
+
+#-- Will be saved in /tmp/aroma/personalize.prop
   "personalize.prop",
-  
-  "User Interface Tweaks","Please Choose Tweaks For User Interface",2,
-  "Stock Pack","Use Stock Battery Icons, Recent Apps Button, Stock Power Menu",0,
-  "Modded Pack","Use Percentage Battery Icons, Menu Button Mod, Advanced Power Menu",0,
-  "Skip","I don't want to install these mods!",1,
+
+
+  #---------------------------------[ Selectbox Without Group ]----------------------------------#
+  # TITLE            |  SUBTITLE                                                 | Initial Value #
+  #------------------+-----------------------------------------------------------+---------------#
+
+   "Generic",            "Unthemed AROMA Installer",                                    1,      #-- selected.0 = 1
+   "MIUI Theme",         "MIUI Theme by mickey-r & amarullz",                           0,      #-- selected.0 = 2
+   "ICS Theme",          "Ice Cream Sandwitch by DemonWav & amarullz",                  0,      #-- selected.0 = 3
+   "MIUI 4 Theme",       "MIUI 4/ICS Theme by amarullz & Lennox",                       0,      #-- selected.0 = 4
+   "Sense Theme",        "HTC Sense Theme by amarullz",                                 0       #-- selected.0 = 5
+
+  #--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
+
+
+   "ADB",		"Please select ADB flavour",					2,		
+   "ADB Usb",		"ADB through Usb (Secure)",					1,
+   "ADB Wifi",		"ADB through Wifi (Insecure if used on open Wifi)",		0,
+   "Skip",		"I don't want to enable ADB (I'll enable it with ADB widget)",	0,
+
   ##################
-  "Advanced Menu Button Mod","",2,
-  "Long Press Home","Use Long Press Home as Menu Button",0,
-  "Skip","I don't want to install advanced mod!",1,
+   "Root",		"Install Root acces, or not",					2,
+   "Roo your divice",	"Use Long Press Home as Menu Button",				1,
+   "Skip",		"I don't want to root my device",				0,
+
   ##########################
-  "Boot Animation","Change Boot Animation",2,
-  "HTC Stock","HTC Official Boot Animation",0,
-  "HTC Black","HTC Black Boot Animation",0,
-  "Android 4.0", "Official Android 4.0 AOSP Boot Animation",0,
-  "Skip","I don't want to install this mod",1,
+   "Gapps",		"Select which flavor to use",					2,
+   "Minimal",		"Installs the basic Gapps to get market working",		1,
+   "Full",		"Installs the full Gapps package",				0,
+   "Skip",		"I don't want to install this mod",				0,
+
   ############################
-  "Boot Sound","Did You Want To Disable Boot Sound?",2,
-  "Delete Boot Sound","",0,
-  "Skip","I don't want to install this mod",1,
-    ####################################
-  "Sony Bravia Engine", "Sony Bravia Engine will make your images look better.",2,
-  "Enable", "Your images will look better",0,
-  "Disable", "Your images will be still same",0,
-  "Skip","I don't want to install this mod",1,
-  ##################################
-  "Font","Please Select A Font For Your Device",2,
-   "Stock","",1,
-  "Ubuntu","",0,
-  "Walkway","",0
-  
- );
- 
-     if prop("personalize.prop","selected.6")=="2" then
-   splash(4000, "ubuntu");
-    if
-      confirm(
-        #-- Title
-          "Ubuntu",
-        #-- Text
-          "Did You Still Want To Install Ubuntu Font?",
-        #-- Icon (Optional)
-          "@info"
-      )=="no"
-    then
-      back("1");
-    endif;
- endif;
-  
-  
-  if prop("personalize.prop","selected.6")=="3" then
-   splash(4000, "walkway");
-    if
-      confirm(
-        #-- Title
-          "Walkway",
-        #-- Text
-          "Did You Still Want To Install Walkway Font?",
-        #-- Icon (Optional)
-          "@info"
-      )=="no"
-	  then
-      back("1");
-    endif;
- endif;
- 
- if prop("personalize.prop","selected.2")=="1" then
- if prop("personalize.prop","selected.1")=="3" then
-alert("UI","If you want to use advanced menu button mod, you need to select a stock pack or modded pack!");
-		back("11");
- endif;
- endif;
- 
- 
-   fontresload( "0", "ttf/Roboto.ttf", "14" );
+   "Xorzone mods",	"Mod jar files to, remap the keys and force orientation",	2,
+   "Install Xorzone's apps and mods","",						1,
+   "Skip","I don't want to install this mod",						0,
+);
+
+
+fontresload( "0", "ttf/Roboto.ttf", "14" );
 install(
   "Installing",
-  "Now flashing LC Mod Pack...\nPlease Wait...",
+  "Now flashing NST-AROMA-AIO...\nPlease Wait...",
   "@install"
 );
 
