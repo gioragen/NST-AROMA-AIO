@@ -32,26 +32,46 @@ viewbox(
 	"@welcome"				#-- Icon: <AROMA Resource Dir>/icons/welcome.png or <ThemeDir>/icon.welcome.png
 );
 
-#fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
-#selectbox(
-#	"NST-NSTG",				#-- Title
-#	"Please Select Mods For Your Device",	#-- Sub Title
-#	"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
-#	"rom.prop",				#-- Will be saved in /tmp/aroma/rom.prop
-#
-#	#---------------------------------[ Selectbox Without Group ]----------------------------------#
-#	# TITLE            |  SUBTITLE                                                 | Initial Value #
-#	#------------------+-----------------------------------------------------------+---------------#
-#	###########################if prop("rom.prop","selected.0")=="2" then###########################
-#
-#	"NST",			"Your device is Nook Simple Touch",				1,      #-- selected.0 = 1
-#	"NSTG",			"Your device is Nook Simple Touch Glow edition",		0,      #-- selected.0 = 2
-#
-#	#------------------------[ Initial Value = 0: Unselected, 1: Selected]-------------------------#
-#);
-
-
 fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+selectbox(
+	"NST-NSTG",				#-- Title
+	"Please Select Mods For Your Device",	#-- Sub Title
+	"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+	"rom.prop",				#-- Will be saved in /tmp/aroma/rom.prop
+
+	#---------------------------------[ Selectbox Without Group ]----------------------------------#
+	# TITLE            |  SUBTITLE                                                 | Initial Value #
+	#------------------+-----------------------------------------------------------+---------------#
+	###########################if prop("rom.prop","selected.0")=="2" then###########################
+
+	"NST",			"Your device is Nook Simple Touch",				1,      #-- selected.0 = 1
+	"NSTG",			"Your device is Nook Simple Touch Glow edition",		0,      #-- selected.0 = 2
+
+	#------------------------[ Initial Value = 0: Unselected, 1: Selected]-------------------------#
+);
+
+selectbox(
+	"Mod or Restore",			#-- Title
+	"What do you want to do?",		#-- Sub Title
+	"@personalize",				#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.personalize.png
+	"mod.prop",				#-- Will be saved in /tmp/aroma/mod.prop
+
+	#----------------------------------[ Selectbox With Groups ]-----------------------------------#
+	# TITLE            |  SUBTITLE                                                 | Initial Value #
+	#------------------+-----------------------------------------------------------+---------------#
+	#############if file_getprop("/tmp/aroma/personalize.prop","selected.1") == "1 then#############
+	
+	"Mod or Restore",	"Do you wish to restore your Nook to default or to Mod it?",	2,	#-- Group 1		
+	"Mod",			"Continue Modding your Nook",					1,	#-- item.1.1
+	"Restore",		"Restore your Nook to default (Will erase all data)",		0,	#-- item.1.2
+
+	"1srt or 2nd flash",	"Is this the first time you flash the zip, or the second?",	2,	#-- Group 2		
+	"1",			"This is the first time.",					1,	#-- item.2.1
+	"2",			"I have allready set up Youtube and Gmail, this is the second",	0,	#-- item.2.2
+	
+	#--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
+);
+
 selectbox(
 	"Mods",					#-- Title
 	"Please Select Mods For Your Device",	#-- Sub Title
@@ -94,10 +114,8 @@ selectbox(
 	"Skip",			"I don't want to install this mod",				0,	#-- item 6.3
 
 	#--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
-
 );
 
-fontresload( "0", "ttf/Roboto.ttf", "14" );
 checkbox(
 	"Choose your apps.",			#-- Title
 	"Select the program want to installed.\n"+
@@ -117,8 +135,6 @@ checkbox(
 	"Minimalistblack",	"",								0,      #-- item.1.4 = Un-Selected by default
 );
 
-
-fontresload( "0", "ttf/Roboto.ttf", "14" );
 install(
 	"Installing",
 	"Now flashing NST-AROMA-AIO...\nPlease Wait...",
@@ -141,8 +157,8 @@ checkviewbox(
 
 if
 	getvar("reboot_it")=="1"		#-- Check if reboot checkbox was checked
-then
-	reboot("onfinish");			#-- reboot("onfinish");   - Reboot if anything finished,
+	then
+		reboot("onfinish");		#-- reboot("onfinish");   - Reboot if anything finished,
 						#-- reboot("now");        - Reboot Directly
 						#-- reboot("disable");    - If you set reboot("onfinish") before, use this command to revert it.
 endif;
