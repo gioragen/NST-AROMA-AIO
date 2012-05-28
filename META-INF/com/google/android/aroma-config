@@ -125,7 +125,7 @@ selectbox(
 
   ##################
    "Root",		"Install Root acces, or not",					2,
-   "Roo your divice",	"Use Long Press Home as Menu Button",				1,
+   "Root your device",	"Use Long Press Home as Menu Button",				1,
    "Skip",		"I don't want to root my device",				0,
 
   ##########################
