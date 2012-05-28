@@ -32,23 +32,132 @@ viewbox(
 	"@welcome"				#-- Icon: <AROMA Resource Dir>/icons/welcome.png or <ThemeDir>/icon.welcome.png
 );
 
-fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
-selectbox(
-	"NST-NSTG",				#-- Title
-	"Please Select Mods For Your Device",	#-- Sub Title
-	"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
-	"rom.prop",				#-- Will be saved in /tmp/aroma/rom.prop
+########################################################################################################################
 
-	#---------------------------------[ Selectbox Without Group ]----------------------------------#
-	# TITLE            |  SUBTITLE                                                 | Initial Value #
-	#------------------+-----------------------------------------------------------+---------------#
-	###########################if prop("rom.prop","selected.0")=="2" then###########################
+if
+	file_getprop("/system/build.prop","ro.product.overall.name") == "NOOK"
+then
+	fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+	selectbox(
+		"NST",					#-- Title
+		"Please Confirm your device is Nook Simple Touch",	#-- Sub Title
+		"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+		"NST.prop",				#-- Will be saved in /tmp/aroma/rom.prop
 
-	"NST",			"Your device is Nook Simple Touch",				1,      #-- selected.0 = 1
-	"NSTG",			"Your device is Nook Simple Touch Glow edition",		0,      #-- selected.0 = 2
+		#---------------------------------[ Selectbox Without Group ]----------------------------------#
+		# TITLE            |  SUBTITLE                                                 | Initial Value #
+		#------------------+-----------------------------------------------------------+---------------#
+		###########################if prop("rom.prop","selected.0")=="2" then###########################
+	
+		"NST",			"Confirm your device is Nook Simple Touch",			1,      #-- selected.0 = 1
+	);
 
-	#------------------------[ Initial Value = 0: Unselected, 1: Selected]-------------------------#
-);
+		if
+		file_getprop("/system/build.prop","ro.build.version.incremental") == "1.1.2"
+		then
+			fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+			selectbox(
+				"Update",					#-- Title
+				"Your device is up to date",			#-- Sub Title
+				"@rom",						#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+				"NSTnoupdate.prop",				#-- Will be saved in /tmp/aroma/
+
+				#---------------------------------[ Selectbox Without Group ]----------------------------------#
+				# TITLE            |  SUBTITLE                                                 | Initial Value #
+				#------------------+-----------------------------------------------------------+---------------#
+				###########################if prop("rom.prop","selected.0")=="2" then###########################
+	
+				"Your device is up to date",			"No need to update",			1,      #-- selected.0 = 1
+				"Force update",					"Force update anyway",			0,      #-- selected.0 = 2
+			);
+
+		else
+			fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+			selectbox(
+				"Update",					#-- Title
+				"Your device is not up to date",	#-- Sub Title
+				"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+				"NSTupdate.prop",			#-- Will be saved in /tmp/aroma/
+
+				#---------------------------------[ Selectbox Without Group ]----------------------------------#
+				# TITLE            |  SUBTITLE                                                 | Initial Value #
+				#------------------+-----------------------------------------------------------+---------------#
+				###########################if prop("rom.prop","selected.0")=="2" then###########################
+	
+				"Your device is not up to date",		"Update",				1,      #-- selected.0 = 1
+				"Do not update"					"Don't update anyway",			0,      #-- selected.0 = 2
+			);
+		endif;
+else
+	fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+	selectbox(
+		"NSTG",					#-- Title
+		"Please Confirm your device is Nook Simple Touch with Glowlight",	#-- Sub Title
+		"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+		"NSTG.prop",				#-- Will be saved in /tmp/aroma/rom.prop
+		#---------------------------------[ Selectbox Without Group ]----------------------------------#
+		# TITLE            |  SUBTITLE                                                 | Initial Value #
+		#------------------+-----------------------------------------------------------+---------------#
+		###########################if prop("rom.prop","selected.0")=="2" then###########################
+
+		"NSTG",			"Confirm your device is Nook Simple Touch Glowlight",		1,      #-- selected.0 = 1
+	);
+	
+	if
+		file_getprop("/system/build.prop","ro.build.version.incremental") == "1.1.5"
+	then
+		fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+		selectbox(
+			"Update",					#-- Title
+			"Your device is up to date",			#-- Sub Title
+			"@rom",						#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+			"NSTGnoupdate.prop",				#-- Will be saved in /tmp/aroma/
+			#---------------------------------[ Selectbox Without Group ]----------------------------------#
+			# TITLE            |  SUBTITLE                                                 | Initial Value #
+			#------------------+-----------------------------------------------------------+---------------#
+			###########################if prop("rom.prop","selected.0")=="2" then###########################
+
+			"Your device is up to date",			"No need to update",			1,      #-- selected.0 = 1
+			"Force update",					"Force update anyway",			0,      #-- selected.0 = 2
+			);
+
+	else
+		fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+		selectbox(
+			"Update",					#-- Title
+			"Your device is not up to date",	#-- Sub Title
+			"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+			"NSTGupdate.prop",			#-- Will be saved in /tmp/aroma/
+			#---------------------------------[ Selectbox Without Group ]----------------------------------#
+			# TITLE            |  SUBTITLE                                                 | Initial Value #
+			#------------------+-----------------------------------------------------------+---------------#
+			###########################if prop("rom.prop","selected.0")=="2" then###########################
+
+			"Your device is not up to date",		"Update",				1,      #-- selected.0 = 1
+			"Do not update"					"Don't update anyway",			0,      #-- selected.0 = 2
+		);
+		endif;
+endif;
+
+########################################################################################################################
+#fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
+#selectbox(
+#	"NST-NSTG",				#-- Title
+#	"Please Select Mods For Your Device",	#-- Sub Title
+#	"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+#	"rom.prop",				#-- Will be saved in /tmp/aroma/rom.prop
+#
+#	#---------------------------------[ Selectbox Without Group ]----------------------------------#
+#	# TITLE            |  SUBTITLE                                                 | Initial Value #
+#	#------------------+-----------------------------------------------------------+---------------#
+#	###########################if prop("rom.prop","selected.0")=="2" then###########################
+#
+#	"NST",			"Your device is Nook Simple Touch",				1,      #-- selected.0 = 1
+#	"NSTG",			"Your device is Nook Simple Touch Glow edition",		0,      #-- selected.0 = 2
+#
+#	#------------------------[ Initial Value = 0: Unselected, 1: Selected]-------------------------#
+#);
+########################################################################################################################
 
 selectbox(
 	"Mod or Restore",			#-- Title
