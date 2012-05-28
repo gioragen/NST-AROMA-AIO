@@ -1,0 +1,89 @@
+assert((getprop("ro.product.device") == "zoom2" || getprop("ro.build.product") == "zoom2") || getprop("ro.product.overall.name") == "NOOK");
+show_progress(0.100000, 6);
+format("ext2", "/dev/block/mmcblk0p5");
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
+show_progress(0.240000, 55);
+package_extract_dir("recovery", "/system");
+package_extract_dir("system", "/system");
+symlink("dumpstate", "/system/bin/dumpcrash");
+symlink("gralloc.omap3.so.1.1.15.3172", "/system/lib/hw/gralloc.omap3.so");
+symlink("libEGL_POWERVR_SGX530_125.so.1.1.15.3172", "/system/lib/egl/libEGL_POWERVR_SGX530_125.so");
+symlink("libGLESv1_CM_POWERVR_SGX530_125.so.1.1.15.3172", "/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so");
+symlink("libGLESv2_POWERVR_SGX530_125.so.1.1.15.3172", "/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so");
+symlink("libIMGegl.so.1.1.15.3172", "/system/lib/libIMGegl.so");
+symlink("libPVRScopeServices.so.1.1.15.3172", "/system/lib/libPVRScopeServices.so");
+symlink("libglslcompiler.so.1.1.15.3172", "/system/lib/libglslcompiler.so");
+symlink("libpvr2d.so.1.1.15.3172", "/system/lib/libpvr2d.so");
+symlink("libpvrANDROID_WSEGL.so.1.1.15.3172", "/system/lib/libpvrANDROID_WSEGL.so");
+symlink("libsrv_init.so.1.1.15.3172", "/system/lib/libsrv_init.so");
+symlink("libsrv_um.so.1.1.15.3172", "/system/lib/libsrv_um.so");
+symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
+        "/system/bin/chown", "/system/bin/cmp", "/system/bin/date",
+        "/system/bin/dd", "/system/bin/df", "/system/bin/dmesg",
+        "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
+        "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
+        "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/kill",
+        "/system/bin/ln", "/system/bin/log", "/system/bin/ls",
+        "/system/bin/lsmod", "/system/bin/mkdir", "/system/bin/mount",
+        "/system/bin/mv", "/system/bin/netstat", "/system/bin/newfs_msdos",
+        "/system/bin/notify", "/system/bin/printenv", "/system/bin/ps",
+        "/system/bin/reboot", "/system/bin/renice", "/system/bin/rm",
+        "/system/bin/rmdir", "/system/bin/rmmod", "/system/bin/route",
+        "/system/bin/schedtop", "/system/bin/sendevent",
+        "/system/bin/setconsole", "/system/bin/setprop", "/system/bin/sleep",
+        "/system/bin/smd", "/system/bin/start", "/system/bin/stop",
+        "/system/bin/sync", "/system/bin/top", "/system/bin/umount",
+        "/system/bin/vmstat", "/system/bin/watchprops",
+        "/system/bin/wipe");
+set_perm_recursive(0, 0, 0755, 0644, "/system");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
+set_perm(0, 3003, 02755, "/system/bin/netcfg");
+set_perm(0, 3004, 02755, "/system/bin/ping");
+set_perm(0, 0, 06755, "/system/bin/syschecksum");
+set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
+set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
+set_perm(0, 2000, 0550, "/system/etc/init.goldfish.sh");
+set_perm(0, 0, 0544, "/system/etc/install-recovery.sh");
+show_progress(0.100000, 14);
+ui_print("Boot files...");
+mount("vfat", "/dev/block/mmcblk0p1", "/boot");
+package_extract_file("MLO", "/boot/MLO");
+package_extract_file("u-boot.bin", "/boot/u-boot.bin");
+package_extract_file("kernel-recovery", "/boot/uRecImg");
+package_extract_file("ramdisk-recovery.img", "/boot/uRecRam");
+package_extract_file("romrestore.zip", "/boot/romrestore.zip");
+package_extract_file("kernel", "/boot/uImage");
+package_extract_file("ramdisk.img", "/boot/uRamdisk");
+package_extract_file("flash_spl.bin", "/boot/flash_spl.bin");
+package_extract_file("charging0.pgm", "/boot/charging0.pgm");
+package_extract_file("wvf.bin", "/boot/wvf.bin");
+package_extract_file("charging3.pgm", "/boot/charging3.pgm");
+package_extract_file("dead.pgm", "/boot/dead.pgm");
+package_extract_file("booting.pgm", "/boot/booting.pgm");
+package_extract_file("cfg.bin", "/boot/cfg.bin");
+package_extract_file("charging2.pgm", "/boot/charging2.pgm");
+package_extract_file("charging1.pgm", "/boot/charging1.pgm");
+unmount("/boot");
+ui_print("Updating firmware...");
+package_extract_file("system/bin/update_gg", "/tmp/update_gg");
+package_extract_file("McNair.bqfs", "/tmp/McNair.bqfs");
+package_extract_file("Lico.dffs", "/tmp/Lico.dffs");
+package_extract_file("bq275020.ver", "/tmp/bq275020.ver");
+package_extract_file("McNair.dffs", "/tmp/McNair.dffs");
+package_extract_file("Lico.bqfs", "/tmp/Lico.bqfs");
+set_perm(0, 0, 0755, "/tmp/update_gg");
+run_program("/tmp/update_gg", "--auto", "--token", "--drive=/tmp/");
+
+show_progress(0.540000, 142);
+package_extract_file("system/bin/update_ts", "/tmp/update_ts");
+package_extract_file("zForce_Touch_Driver_Gossamer_6_Inch_latest.hex", "/tmp/zForce.hex");
+set_perm(0, 0, 0755, "/tmp/update_ts");
+run_program("/tmp/update_ts", "--file=/tmp/zForce.hex");
+
+show_progress(0.020000, 5);
+package_extract_file("system/bin/update_epd", "/tmp/update_epd");
+package_extract_dir("EpdWaveforms", "/tmp/EpdWaveforms");
+set_perm(0, 0, 0755, "/tmp/update_epd");
+run_program("/tmp/update_epd", "--dir", "/tmp/EpdWaveforms");
+
+unmount("/system");

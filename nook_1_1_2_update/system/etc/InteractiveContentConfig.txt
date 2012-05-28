@@ -1,0 +1,3 @@
+/data/
+books/
+/data/books/config.xml
