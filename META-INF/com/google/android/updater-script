@@ -1,828 +1,267 @@
-mount("ext4", "EMMC", "/dev/block/mmcblk0p15", "/data");
-mount("ext4", "EMMC", "/dev/block/mmcblk0p12", "/system");
-
 set_progress(0.10);
 
-###############BOOT SOUND#########
+###############Update###############
 if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.4") == "1"
+ file_getprop("/tmp/aroma/personalize.prop","selected.1") == "1"
 then
-ui_print("Deleting Boot Animation Sound");
-delete_recursive("/data/local/android_audio.mp3");
-delete_recursive("/data/local/htc_boot.mp3");
-ui_print("Boot Animation Sound Deleted");
+ui_print("Updating distro to 1.1.2");
+
+assert((getprop("ro.product.device") == "zoom2" || getprop("ro.build.product") == "zoom2") || getprop("ro.product.overall.name") == "NOOK");
+show_progress(0.100000, 6);
+format("ext2", "/dev/block/mmcblk0p5");
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
+show_progress(0.240000, 55);
+package_extract_dir("nook_1_1_2_update/recovery", "/system");
+package_extract_dir("nook_1_1_2_update/system", "/system");
+symlink("dumpstate", "/system/bin/dumpcrash");
+symlink("gralloc.omap3.so.1.1.15.3172", "/system/lib/hw/gralloc.omap3.so");
+symlink("libEGL_POWERVR_SGX530_125.so.1.1.15.3172", "/system/lib/egl/libEGL_POWERVR_SGX530_125.so");
+symlink("libGLESv1_CM_POWERVR_SGX530_125.so.1.1.15.3172", "/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so");
+symlink("libGLESv2_POWERVR_SGX530_125.so.1.1.15.3172", "/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so");
+symlink("libIMGegl.so.1.1.15.3172", "/system/lib/libIMGegl.so");
+symlink("libPVRScopeServices.so.1.1.15.3172", "/system/lib/libPVRScopeServices.so");
+symlink("libglslcompiler.so.1.1.15.3172", "/system/lib/libglslcompiler.so");
+symlink("libpvr2d.so.1.1.15.3172", "/system/lib/libpvr2d.so");
+symlink("libpvrANDROID_WSEGL.so.1.1.15.3172", "/system/lib/libpvrANDROID_WSEGL.so");
+symlink("libsrv_init.so.1.1.15.3172", "/system/lib/libsrv_init.so");
+symlink("libsrv_um.so.1.1.15.3172", "/system/lib/libsrv_um.so");
+symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
+        "/system/bin/chown", "/system/bin/cmp", "/system/bin/date",
+        "/system/bin/dd", "/system/bin/df", "/system/bin/dmesg",
+        "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
+        "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
+        "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/kill",
+        "/system/bin/ln", "/system/bin/log", "/system/bin/ls",
+        "/system/bin/lsmod", "/system/bin/mkdir", "/system/bin/mount",
+        "/system/bin/mv", "/system/bin/netstat", "/system/bin/newfs_msdos",
+        "/system/bin/notify", "/system/bin/printenv", "/system/bin/ps",
+        "/system/bin/reboot", "/system/bin/renice", "/system/bin/rm",
+        "/system/bin/rmdir", "/system/bin/rmmod", "/system/bin/route",
+        "/system/bin/schedtop", "/system/bin/sendevent",
+        "/system/bin/setconsole", "/system/bin/setprop", "/system/bin/sleep",
+        "/system/bin/smd", "/system/bin/start", "/system/bin/stop",
+        "/system/bin/sync", "/system/bin/top", "/system/bin/umount",
+        "/system/bin/vmstat", "/system/bin/watchprops",
+        "/system/bin/wipe");
+set_perm_recursive(0, 0, 0755, 0644, "/system");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
+set_perm(0, 3003, 02755, "/system/bin/netcfg");
+set_perm(0, 3004, 02755, "/system/bin/ping");
+set_perm(0, 0, 06755, "/system/bin/syschecksum");
+set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
+set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
+set_perm(0, 2000, 0550, "/system/etc/init.goldfish.sh");
+set_perm(0, 0, 0544, "/system/etc/install-recovery.sh");
+show_progress(0.100000, 14);
+
+mount("vfat", "/dev/block/mmcblk0p1", "/boot");
+package_extract_file("nook_1_1_2_update/MLO", "/boot/MLO");
+package_extract_file("nook_1_1_2_update/u-boot.bin", "/boot/u-boot.bin");
+package_extract_file("nook_1_1_2_update/kernel-recovery", "/boot/uRecImg");
+package_extract_file("nook_1_1_2_update/ramdisk-recovery.img", "/boot/uRecRam");
+package_extract_file("nook_1_1_2_update/romrestore.zip", "/boot/romrestore.zip");
+package_extract_file("nook_1_1_2_update/kernel", "/boot/uImage");
+package_extract_file("nook_1_1_2_update/ramdisk.img", "/boot/uRamdisk");
+package_extract_file("nook_1_1_2_update/flash_spl.bin", "/boot/flash_spl.bin");
+package_extract_file("nook_1_1_2_update/charging0.pgm", "/boot/charging0.pgm");
+package_extract_file("nook_1_1_2_update/wvf.bin", "/boot/wvf.bin");
+package_extract_file("nook_1_1_2_update/charging3.pgm", "/boot/charging3.pgm");
+package_extract_file("nook_1_1_2_update/dead.pgm", "/boot/dead.pgm");
+package_extract_file("nook_1_1_2_update/booting.pgm", "/boot/booting.pgm");
+package_extract_file("nook_1_1_2_update/cfg.bin", "/boot/cfg.bin");
+package_extract_file("nook_1_1_2_update/charging2.pgm", "/boot/charging2.pgm");
+package_extract_file("nook_1_1_2_update/charging1.pgm", "/boot/charging1.pgm");
+unmount("/boot");
+
+package_extract_file("nook_1_1_2_update/system/bin/update_gg", "/tmp/update_gg");
+package_extract_file("nook_1_1_2_update/McNair.bqfs", "/tmp/McNair.bqfs");
+package_extract_file("nook_1_1_2_update/Lico.dffs", "/tmp/Lico.dffs");
+package_extract_file("nook_1_1_2_update/bq275020.ver", "/tmp/bq275020.ver");
+package_extract_file("nook_1_1_2_update/McNair.dffs", "/tmp/McNair.dffs");
+package_extract_file("nook_1_1_2_update/Lico.bqfs", "/tmp/Lico.bqfs");
+set_perm(0, 0, 0755, "/tmp/update_gg");
+run_program("/tmp/update_gg", "--auto", "--token", "--drive=/tmp/");
+
+show_progress(0.540000, 142);
+package_extract_file("nook_1_1_2_update/system/bin/update_ts", "/tmp/update_ts");
+package_extract_file("nook_1_1_2_update/zForce_Touch_Driver_Gossamer_6_Inch_latest.hex", "/tmp/zForce.hex");
+set_perm(0, 0, 0755, "/tmp/update_ts");
+run_program("/tmp/update_ts", "--file=/tmp/zForce.hex");
+
+show_progress(0.020000, 5);
+package_extract_file("nook_1_1_2_update/system/bin/update_epd", "/tmp/update_epd");
+package_extract_dir("nook_1_1_2_update/EpdWaveforms", "/tmp/EpdWaveforms");
+set_perm(0, 0, 0755, "/tmp/update_epd");
+run_program("/tmp/update_epd", "--dir", "/tmp/EpdWaveforms");
+
+unmount("/system");
 endif;
+
+if
+ file_getprop("/tmp/aroma/personalize.prop","selected.1") == "1"
+then
+ui_print("Skiping update");
+endif;
+
 set_progress(0.20);
 
-##################BOOTANIMATION##############################################
+##################Kernel##################
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
 if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.3") == "1"
+ file_getprop("/tmp/aroma/personalize.prop","selected.2") == "1"
 then
-ui_print("Stock HTC One Boot Animation is Installing");
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "1"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
- package_extract_dir("extra/stockboot/customize/resource", "/system/customize/resource");
-	package_extract_dir("extra/stockboot/local", "/data/local");
-	 ui_print("Stock HTC One Boot Animation Extracted");
-	endif;
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "2"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "3"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-	endif;
-	if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "4"
-then
-ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "5"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("IcyKernel");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "6"
+file_getprop("/tmp/aroma/rom.prop","selected.2") == "2"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("Balanced Kernel");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "7"
+file_getprop("/tmp/aroma/rom.prop","selected.2") == "3"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("Undervolted Kernel");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "8"
+file_getprop("/tmp/aroma/rom.prop","selected.2") == "4"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/data/local/bootanimation.zip.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("Overclocked Kernel");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "9"
+file_getprop("/tmp/aroma/rom.prop","selected.2") == "5"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("Multitouch+Host");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "10"
+file_getprop("/tmp/aroma/rom.prop","selected.2") == "6"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("Stock");
+endif;
+
+unmount("/system");
+set_progress(0.30);
+
+##################ADB##################
+mount("vfat", "/dev/block/mmcblk0p1", "/boot");
+if
+ file_getprop("/tmp/aroma/personalize.prop","selected.3") == "1"
+then
+ui_print("Installing ADB through Usb -Secure-");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "11"
+file_getprop("/tmp/aroma/rom.prop","selected.3") == "2"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/stockboot/customize/resource/downanimation.zip", "/system/customize/resource/downanimation.zip");
-	package_extract_file("extra/stockboot/local/bootanimation.zip", "/system/customize/resource/bootanimation.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-
-
-	
-	ui_print("Stock HTC One Boot Animation Installed");
-endif;
-
-##################################################################################################################################
-
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.3") == "2"
-then
-ui_print("Black HTC One Boot Animation is Installing");
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "1"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
- package_extract_dir("extra/blackboot/customize/resource", "/system/customize/resource");
-	package_extract_dir("extra/blackboot/local", "/data/local");
-	 ui_print("Stock HTC One Boot Animation Extracted");
-	endif;
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "2"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "3"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-	endif;
-	if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "4"
-then
-ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "5"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("Installing ADB through Wifi -Insecure if used on open Wifi-");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "6"
+file_getprop("/tmp/aroma/rom.prop","selected.3") == "3"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("No need for ADB, skipping -Can be enabled through ADB widget-");
+endif;
+
+unmount("/boot");
+set_progress(0.40);
+
+##################Root##################
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
+mount("ext3", "/dev/block/mmcblk0p8", "/data");
+if
+ file_getprop("/tmp/aroma/personalize.prop","selected.4") == "1"
+then
+ui_print("Enabling Root acces");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "7"
+ file_getprop("/tmp/aroma/personalize.prop","selected.4") == "2"
 then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
+ui_print("No need for Root, skipping");
 endif;
 
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "8"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/data/local/bootanimation.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
+unmount("/data");
+unmount("/system");
+set_progress(0.50);
 
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "9"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "10"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/hTC_downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "11"
-then
- ui_print("Extracting Stock HTC One Boot Animation");
-package_extract_file("extra/blackboot/customize/resource/downanimation.zip", "/system/customize/resource/downanimation.zip");
-	package_extract_file("extra/blackboot/local/bootanimation.zip", "/system/customize/resource/bootanimation.zip");
-		 ui_print("Stock HTC One Boot Animation Extracted");
-endif;
-
-ui_print("Black HTC One Boot Animation Installed");
-endif;
-
-#$$$$$$$$$$AOSP$$$$$$$$$$$$$
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.3") == "3"
-then
-ui_print("AOSP Boot Animation is Installing");
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "1"
-then
-ui_print("Extracting AOSP Boot Animation");
-    package_extract_dir("extra/aospboot", "/data/local");
-	ui_print("AOSP Boot Animation Extracted");
-	endif;
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "2"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "3"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("Black HTC One Boot Animation Extracted");
-endif;
-
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "4"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "5"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "6"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "7"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "8"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/data/local/bootanimation.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "9"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "10"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/hTC_bootup_one.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-if
- file_getprop("/tmp/aroma-data/rom.prop","selected.0") == "11"
-then
-ui_print("Extracting AOSP Boot Animation");
-package_extract_file("extra/aospboot/bootanimation.zip", "/system/customize/resource/bootanimation.zip");
-ui_print("AOSP Boot Animation Extracted");
-endif;
-
-
-
-ui_print("AOSP Boot Animation Installed");
-endif;
-
-set_progress(0.53);
-
-######################BRAVIA_ENGINE####################
+######################Gapps######################
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
+mount("ext3", "/dev/block/mmcblk0p8", "/data");
 if
  file_getprop("/tmp/aroma-data/personalize.prop","selected.5") == "1"
 then
-ui_print("Enabling Sony Bravia Engine");
-			package_extract_file("extra/bravia/bravia.sh", "/tmp/bravia.sh");
-			package_extract_dir("extra/bravia/", "/system/");
-			set_perm(0, 0, 0777, "/tmp/bravia.sh");
-			run_program("/tmp/bravia.sh");
-			delete("/tmp/bravia.sh");
-			delete("/system/bravia.sh");
-			set_perm(0, 0, 0755, "/system/etc/be_photo");
-            set_perm(0, 0, 0755, "/system/etc/be_movie"); 
+ui_print("Installing Minimal Gapps");
 endif;
 
 if
  file_getprop("/tmp/aroma-data/personalize.prop","selected.5") == "2"
 then
-ui_print("Disabling Sony Bravia Engine");
-delete_recursive("/system/etc/be_movie");
-	delete_recursive("/system/etc/be_photo");
-	delete_recursive("/system/etc/be_photo");
-	delete_recursive("/system/etc/permissions/com.sonyericsson.android.SwIqiBmp.xml");
-	delete_recursive("/system/framework/com.sonyericsson.android.SwIqiBmp.jar");
-	delete_recursive("/system/lib/libswiqibmpcnv.so");
-	ui_print("Sony Bravia Engine Uninstalled");
-endif;
-
-set_progress(0.72);
-
-#######################UI TWEAKS########################
-
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.1") == "1"
-then
-ui_print("Installing Stock HTC One Pack");
-ui_print("Extracting System Apps");
- package_extract_dir("extra/stockui/app", "/system/app");
- ui_print("Extracting Frameworks");
-	package_extract_dir("extra/stockui/framework", "/system/framework");
-	 ui_print("Extracting Key Layout Configurations");
-	package_extract_dir("extra/stockui/usr/keylayout", "/system/usr/keylayout");
-	 ui_print("Deleting Dalvik Cache (Next boot will take more time)");
-	delete_recursive("/data/dalvik-cache");
+ui_print("Installing Full Gapps");
 endif;
 
 if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.1") == "2"
+ file_getprop("/tmp/aroma-data/personalize.prop","selected.5") == "2"
 then
-ui_print("Installing Modded HTC One Pack");
-ui_print("Extracting System Apps");
- package_extract_dir("extra/moddedui/app", "/system/app");
-  ui_print("Extracting Frameworks");
-	package_extract_dir("extra/moddedui/framework", "/system/framework");
-		 ui_print("Extracting Key Layout Configurations");
-	package_extract_dir("extra/moddedui/usr/keylayout", "/system/usr/keylayout");
-	ui_print("Deleting Dalvik Cache (Next boot will take more time)");
-	delete_recursive("/data/dalvik-cache");
+ui_print("No need for Gapps, skipping");
 endif;
 
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.1") == "1"
-then
+unmount("/data");
+unmount("/system");
+set_progress(0.70);
 
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.2") == "1"
-then
-
-package_extract_file("extra/menu/stock/android.policy.jar", "/system/framework/android.policy.jar");
-package_extract_file("extra/menu/stock/qwerty.kl", "/system/usr/keylayout/qwerty.kl");
-endif;
-
-endif;
-
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.1") == "2"
-then
-
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.2") == "1"
-then
-
-package_extract_file("extra/menu/modded/android.policy.jar", "/system/framework/android.policy.jar");
-package_extract_file("extra/menu/modded/qwerty.kl", "/system/usr/keylayout/qwerty.kl");
-endif;
-
-endif;
-##############################FONTS################
-
+#######################Xorzone mods########################
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
+mount("ext3", "/dev/block/mmcblk0p8", "/data");
 if
  file_getprop("/tmp/aroma-data/personalize.prop","selected.6") == "1"
 then
-ui_print("Stock Font Installed");
-package_extract_dir("extra/fonts/stock", "/system/fonts");
+ui_print("Install Xorzone's apps and mods");
 endif;
+
 if
  file_getprop("/tmp/aroma-data/personalize.prop","selected.6") == "2"
 then
-ui_print("Ubuntu Font Installed");
-package_extract_dir("extra/fonts/ubuntu", "/system/fonts");
+ui_print("No need for Xorzone's apps and mods, skipping");
 endif;
 
-if
- file_getprop("/tmp/aroma-data/personalize.prop","selected.6") == "3"
-then
+unmount("/data");
+unmount("/system");
+set_progress(0.80);
 
-package_extract_dir("extra/fonts/walkway", "/system/fonts");
-ui_print("Walkway Font Installed");
-endif;
-
-
-
-
-
-
-
-
+##############################Apps############################## WRONG RECHECK!!!!
+mount("ext2", "/dev/block/mmcblk0p5", "/system");
+mount("ext3", "/dev/block/mmcblk0p8", "/data");
+#if
+# file_getprop("/tmp/aroma-data/personalize.prop","selected.7") == "1"
+#then
+#ui_print("Installing ADW launcher");
+#endif;
+#
+#if
+# file_getprop("/tmp/aroma-data/personalize.prop","selected.7") == "2"
+#then
+#ui_print("Installing Software keys");
+#endif;
+#
+#if
+# file_getprop("/tmp/aroma-data/personalize.prop","selected.7") == "3"
+#then
+#ui_print("Installing ADBWireless");
+#endif;
+#
+#if
+# file_getprop("/tmp/aroma-data/personalize.prop","selected.7") == "4"
+#then
+#ui_print("Installing Minimalistblack");
+#endif;
+#
+#unmount("/data");
+#unmount("/system");
+##############################END##############################
 
 ui_print("Installation Finished Succesfully");
 set_progress(1.0);
-
-
-
-
-
-
-
-##
-#
-# AROMA Installer - Installer Script
-#       (c) 2011 by Ahmad Amarullah
-#           amarullz - xda-developers
-#
-#       Version 1.60 - TEST updater-script
-#       FOR LEARNING PORPOSE ONLY
-#
-##
-
-##
-#
-# OLD UPDATER-BINARY
-#
-# Here you can use old command for flashing files, like:
-#  mount
-#  umount
-#  delete_recursive
-#  format
-#  package_extract_dir
-#  set_perm_recursive
-#
-
-## CHECKING Configuration from aroma-config
-#
-# Check it using if else statement, with file_getprop
-# in /tmp/aroma
-#
-# Example:
-# if
-#      file_getprop("/tmp/aroma/customize.prop","item.6.3") == "1"
-# then
-#   ... here the command ...
-# endif;
-#
-
-## INFO COMMAND FOR AROMA
-#
-#-- DIFFERENT BEHAVIOUR
-#
-# set_progress(0.5);
-#    Set Progress position: 0.0 = 0%; 0.5 = 50%; 1.0 = 100%
-#    
-# show_progress(0.2, 400);
-#    show_progress( progress size, number of files to be extracted );
-#    if we had 50 files, and want to "add" 0.2 into progress after all finished
-#    use (0.2, 50)
-#
-# show_progress(0.2, "-2000");
-#    show_progress( progress size, wait for 2000ms );
-#    For show progress with time as progress indicator, use negative value. After 2second progress will add 0.2/20% into the value
-#    use (0.2, "-2000"). Note, use quote for value "-2000"
-#
-# ui_print("@ Title");
-#    Set progress title
-#
-# ui_print("Default Text");
-#    Set Normal Log Text
-#
-##
-
-#####################################################################################################
-#
-# EXAMPLES INSTALLER SCRIPT - It won't flash anything.
-#
-# This script will use run_program("/tmp/aroma/sleep","500"); to wait the command to another command
-# in real installation, you don't need it.... so delete the lines
-#
-#
-ui_print("@INFORMATIONS");
-ui_print("This installation was used for testing only.");
-ui_print("It won't flash anything.");
-ui_print(" ");
-ui_print(" ");
-
-set_progress(0.01);
-ui_print("@Mounting & Formating Devices");
-
-set_progress(0.02);
-ui_print("  Mounting /data");
-run_program("/tmp/aroma/sleep","500");
-#
-# Example:
-# unmount("/data");
-# mount("MTD","userdata","/data");
-#
-
-set_progress(0.03);
-ui_print("  Mounting /sd-ext");
-run_program("/tmp/aroma/sleep","500");
-#
-# Example:
-# unmount("/sd-ext");
-# run_program("/sbin/busybox", "mount", "-t", "auto", "/dev/block/mmcblk0p2", "/sd-ext");
-#
-
-set_progress(0.04);
-show_progress(0.05, "-2000"); #-- Example show_progress with time as indicator for 2 second
-ui_print("  Wait for 2 Seconds");
-run_program("/tmp/aroma/sleep","2000");
-#
-# Example:
-# unmount("/system");
-# format("MTD", "system");
-#
-
-set_progress(0.09);
-ui_print("  Mounting /system");
-run_program("/tmp/aroma/sleep","500");
-#
-# Example:
-# mount("MTD", "system", "/system");
-#
-
-set_progress(0.1);
-ui_print(" ");
-ui_print("@Example Progress by Time for 10 Seconds");
-show_progress(0.3, "-10000"); #-- Example show_progress with time as indicator for 10 second
-run_program("/tmp/aroma/sleep","10000");
-set_progress(0.4);
-
-#
-# Example Extract Files
-#
-ui_print(" ");
-ui_print("@Example Progress by Files");
-ui_print("  Extracting Files Into Temporary");
-ui_print("  For Exampling Progress by files");
-show_progress(0.3, "1264");       #-- Example show_progress with files extracted as indicator - 158 x 8 Times files
-
-#-- Extract Then Delete It ( 8x )
-ui_print("  Extract 1");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 2");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 3");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 4");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 5");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 6");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 7");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 8");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print(" ");
-set_progress(0.7);
-
-ui_print("@Installing Customize Packages");
-show_progress(0.2, "-5700"); #-- 19 package * 300ms per package = 5700ms
-##---- Customize Packages
-	  
-    # Facebook
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.1") == "1"
-    then
-      ui_print("@  Installing Facebook");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-
-    # Twitter
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.2") == "1"
-    then
-      ui_print("@  Installing Twitter");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-    # AdobeFlashPlayer
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.3") == "1"
-    then
-      ui_print("@  Installing AdobeFlashPlayer");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-    # AdobeReader
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.4") == "1"
-    then
-      ui_print("@  Installing AdobeReader");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# EStrongFilemanager
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.1") == "1"
-    then
-      ui_print("@  Installing EStrongFilemanager");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# BackupEverything
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.2") == "1"
-    then
-      ui_print("@  Installing BackupEverything");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# DaemonController
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.3") == "1"
-    then
-      ui_print("@  Installing DaemonController");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# DSPManager
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.4") == "1"
-    then
-      ui_print("@  Installing DSPManager");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-    # BookmarksWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.1") == "1"
-    then
-      ui_print("@  Installing BookmarksWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# CalculatorWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.2") == "1"
-    then
-      ui_print("@  Installing CalculatorWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# CalendarWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.3") == "1"
-    then
-      ui_print("@  Installing CalendarWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# ContactWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.4") == "1"
-    then
-      ui_print("@  Installing ContactWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# FMRadioWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.5") == "1"
-    then
-      ui_print("@  Installing FMRadioWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# MusicWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.6") == "1"
-    then
-      ui_print("@  Installing MusicWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# QuickLaunchWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.7") == "1"
-    then
-      ui_print("@  Installing QuickLaunchWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# TrendsWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.8") == "1"
-    then
-      ui_print("@  Installing TrendsWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# GenieWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.9") == "1"
-    then
-      ui_print("@  Installing GenieWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# HTCSkins
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.4.1") == "1"
-    then
-      ui_print("@  Installing HTCSkins");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# MoreSkins
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.4.2") == "1"
-    then
-      ui_print("@  Installing MoreSkins");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-
-#--- END OF Customize
-ui_print(" ");
-set_progress(0.9);
-
-#-- Kernel
-ui_print("@Kernel & Mods");
-if
-  file_getprop("/tmp/aroma/mods.prop","selected.1") == "1"
-then
-  ui_print(" 2.6.8 Kernel");
-endif;
-
-if
-  file_getprop("/tmp/aroma/mods.prop","selected.1") == "2"
-then
-  ui_print(" 3.0.0 Kernel");
-endif;
-
-if
-  file_getprop("/tmp/aroma/mods.prop","selected.1") == "3"
-then
-  ui_print(" AROMA Kernel");
-endif;
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.93);
-
-
-#-- Boot Animation
-ui_print(" Boot Animation selected = "+file_getprop("/tmp/aroma/mods.prop","selected.2"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.95);
-
-#-- SD-EXT Mods
-ui_print(" SD-EXT Mods selected = "+file_getprop("/tmp/aroma/mods.prop","selected.3"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.97);
-
-#-- Input Method
-ui_print(" Input Method selected = "+file_getprop("/tmp/aroma/mods.prop","selected.4"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.98);
-
-#-- Camera
-ui_print(" Camera selected = "+file_getprop("/tmp/aroma/mods.prop","selected.5"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.99);
-
-ui_print(" ");
-
-#-- Finish
-ui_print(" ");
-ui_print("@Finished");
-set_progress(1);
