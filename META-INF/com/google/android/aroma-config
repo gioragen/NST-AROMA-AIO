@@ -85,6 +85,27 @@ textbox(
 );
 
 
+#fontresload( "0", "ttf/Roboto.ttf", "9" );
+#selectbox(
+##-- Title
+#"NST-NSTG",
+#
+##-- Sub Title
+#  "Please Select Mods For Your Device",
+#
+##-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+#  "@rom",
+#
+##-- Will be saved in /tmp/aroma/personalize.prop
+#  "rom.prop",
+#
+#   "NST or NSTG",	"What nook flavour are you using, normal or glowlight?",	2,		
+#   "NST",		"Update system to 1.1.2",					1,
+#   "NSTG",		"I have allready updated, no need for this.",			0,
+#
+#);
+
+
 fontresload( "0", "ttf/Roboto.ttf", "9" );
 selectbox(
 #-- Title
@@ -98,7 +119,6 @@ selectbox(
 
 #-- Will be saved in /tmp/aroma/personalize.prop
   "personalize.prop",
-
 
   #---------------------------------[ Selectbox Without Group ]----------------------------------#
   # TITLE            |  SUBTITLE                                                 | Initial Value #
@@ -118,6 +138,15 @@ selectbox(
    "Skip",		"I have allready updated, no need for this.",			1,
    
   ##################
+#   "Kernel",		"Please select what kernel to use",				2,		
+#   "IcyKernel",		"Extremely undervolted and undercloked -+Multitouch+Host-",	0,
+#   "Balanced Kernel",	"Undervolted and mildly underclocked -+Multitouch+Host-",	0,
+#   "Undervolted Kernel","Stock clocks, mildly undervolted -+Multitouch+Host-",		0,
+#   "Overclocked Kernel","300-600-1000, mildly undervolted -+Multitouch+Host-",		0,
+#   "Multitouch+Host",	"Enabled multitouch + Host mode",				0,
+#   "Stock",		"Stock kernel",							1,
+  ##################
+
    "ADB",		"Please select ADB flavour",					2,		
    "ADB Usb",		"ADB through Usb (Secure)",					1,
    "ADB Wifi",		"ADB through Wifi (Insecure if used on open Wifi)",		0,
