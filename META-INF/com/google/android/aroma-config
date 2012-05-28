@@ -136,7 +136,7 @@ else
 			"Your device is not up to date",		"Update",				1,      #-- selected.0 = 1
 			"Do not update"					"Don't update anyway",			0,      #-- selected.0 = 2
 		);
-		endif;
+	endif;
 endif;
 
 ########################################################################################################################
