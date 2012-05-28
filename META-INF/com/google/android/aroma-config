@@ -38,7 +38,6 @@
 #                         dp calculated with = round(min(width,height) / 160)
 #
 ###
-
 ini_set("customkeycode_up",     "94");
 ini_set("customkeycode_down",   "95");
 ini_set("customkeycode_select", "102");
