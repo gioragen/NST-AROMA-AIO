@@ -1,19 +1,3 @@
-﻿### LICENSE:
-#
-# Copyright (C) 2011 Ahmad Amarullah ( http://amarullz.com/ )
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 ### FILE INFO:
 #
 # AROMA Installer 2.00 - AROMA Installer Test Script Configuration
@@ -24,169 +8,126 @@
 #       Binary Version  : 2.00
 #       Binary Codename : Dahlia
 #
-### INFO:
-#
-# * AROMA Resource Dir  = META-INF/com/google/android/aroma
-#
-# * AROMA Temporary Dir = /tmp/aroma/
-#
-# * About Icon          = @alert - show <AROMA Resource Dir>/icons/alert.png
-#                         or if theme used it will find <themedir>/icon.alert.png
-#                         you can still access it via "icons/alert"
-#
-# * dp                  = Device Pixelate. WVGA/QHD = 3, HVGA = 2.
-#                         dp calculated with = round(min(width,height) / 160)
-#
 ###
-ini_set("customkeycode_up",     "94");
-ini_set("customkeycode_down",   "95");
-ini_set("customkeycode_select", "102");
-ini_set("customkeycode_menu",   "93");
-ini_set("customkeycode_back",   "92");
 
-splash(4000, "lcmod");
+calibrate("1.8199","42","1.0205","28");		#-- Set screen calibration coordinates
 
-theme("sense");
+ini_set("customkeycode_up",     "94");		#-- Set custom up key
+ini_set("customkeycode_down",   "95");		#-- Set custom down key
+ini_set("customkeycode_select", "102");		#-- Set custom select key
+ini_set("customkeycode_menu",   "93");		#-- Set custom menu key
+ini_set("customkeycode_back",   "92");		#-- Set custom back key
 
-# calibrate("-","-","-","-","yes");
+splash(4000, "lcmod");				#-- Set size and splashscreen
 
- fontresload( "0", "ttf/roboto.ttf", "14" );
-  fontresload( "1", "ttf/arkitech.ttf", "18" );
+theme("sense");					#-- Set theme
+
+fontresload( "0", "ttf/roboto.ttf", "16" );	#-- Set custom font and size
+fontresload( "1", "ttf/arkitech.ttf", "18" );	#-- Set custom font and size
 
 viewbox(
-#-- Title
-  "NST-AROMA-AIO",
-
-#-- Sub Title
-    "\n\n\n\n\n"+
-    "          	Welcome to NST-AROMA-AIO by eded333\n"+
-	"      \n\n"+
-    "\n\n\n"+
-    "Thanks for using my Mod!!",
-
-#-- Icon: <AROMA Resource Dir>/icons/welcome.png or <ThemeDir>/icon.welcome.png
-  "@welcome"
+	"NST-AROMA-AIO",			#-- Title
+	"Welcome to NST-AROMA-AIO by eded333\n"+	
+	"Thanks for using my Mod!!",		#-- Sub Title
+	"@welcome"				#-- Icon: <AROMA Resource Dir>/icons/welcome.png or <ThemeDir>/icon.welcome.png
 );
 
- fontresload( "0", "ttf/Roboto.ttf", "11" );
-
-textbox(
-#-- Title
-  "Changelog",
-
-#-- Sub Title
-  "NST-AROMA-AIO Changelog",
-
-#-- Icon: <AROMA Resource Dir>/icons/update.png or <ThemeDir>/icon.update.png
-  "@update",
-
-  readfile_aroma("changelogs.txt")
-);
-
-
-#fontresload( "0", "ttf/Roboto.ttf", "9" );
+fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
 #selectbox(
-##-- Title
-#"NST-NSTG",
+#	"NST-NSTG",				#-- Title
+#	"Please Select Mods For Your Device",	#-- Sub Title
+#	"@rom",					#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
+#	"rom.prop",				#-- Will be saved in /tmp/aroma/rom.prop
 #
-##-- Sub Title
-#  "Please Select Mods For Your Device",
+#	#---------------------------------[ Selectbox Without Group ]----------------------------------#
+#	# TITLE            |  SUBTITLE                                                 | Initial Value #
+#	#------------------+-----------------------------------------------------------+---------------#
+#	###########################if prop("rom.prop","selected.0")=="2" then###########################
 #
-##-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.rom.png
-#  "@rom",
+#	"NST",			"Your device is Nook Simple Touch",				1,      #-- selected.0 = 1
+#	"NSTG",			"Your device is Nook Simple Touch Glow edition",		0,      #-- selected.0 = 2
 #
-##-- Will be saved in /tmp/aroma/personalize.prop
-#  "rom.prop",
-#
-#   "NST or NSTG",	"What nook flavour are you using, normal or glowlight?",	2,		
-#   "NST",		"Update system to 1.1.2",					1,
-#   "NSTG",		"I have allready updated, no need for this.",			0,
-#
+#	#------------------------[ Initial Value = 0: Unselected, 1: Selected]-------------------------#
 #);
 
 
-fontresload( "0", "ttf/Roboto.ttf", "9" );
+fontresload( "0", "ttf/Roboto.ttf", "14" );	#-- Set custom font and size
 selectbox(
-#-- Title
-"Mods",
+	"Mods",					#-- Title
+	"Please Select Mods For Your Device",	#-- Sub Title
+	"@personalize",				#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.personalize.png
+	"personalize.prop",			#-- Will be saved in /tmp/aroma/personalize.prop
 
-#-- Sub Title
-  "Please Select Mods For Your Device",
+	#----------------------------------[ Selectbox With Groups ]-----------------------------------#
+	# TITLE            |  SUBTITLE                                                 | Initial Value #
+	#------------------+-----------------------------------------------------------+---------------#
+	#############if file_getprop("/tmp/aroma/personalize.prop","selected.1") == "1 then#############
 
-#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.personalize.png
-  "@personalize",
+	"Kernel",		"Please select what kernel to use",				2,	#-- Group 1		
+	"IcyKernel",		"Extremely undervolted and undercloked -+Multitouch+Host-",	0,	#-- item.1.1
+	"Balanced Kernel",	"Undervolted and mildly underclocked -+Multitouch+Host-",	0,	#-- item.1.2
+	"Undervolted Kernel",	"Stock clocks, mildly undervolted -+Multitouch+Host-",		0,	#-- item.1.3
+	"Overclocked Kernel",	"300-600-1000, mildly undervolted -+Multitouch+Host-",		0,	#-- item.1.4
+	"Multitouch+Host",	"Enabled multitouch + Host mode",				0,	#-- item.1.5
+	"Stock",		"Stock kernel",							1,	#-- item.1.6 
 
-#-- Will be saved in /tmp/aroma/personalize.prop
-  "personalize.prop",
+	"Update",		"Please update to the latest distro if you haven't allready",	2,	#-- Group 2		
+	"Install 1.1.2",	"Update system to 1.1.2",					0,	#-- item 2.1
+	"Skip",			"I have allready updated, no need for this.",			1,	#-- item 2.2
+	
+	"ADB",			"Please select ADB flavour",					2,	#-- Group 3
+	"ADB Usb",		"ADB through Usb (Secure)",					1,	#-- item 3.1
+	"ADB Wifi",		"ADB through Wifi (Insecure if used on open Wifi)",		0,	#-- item 3.2
+	"Skip",			"I don't want to enable ADB (I'll enable it with ADB widget)",	0,	#-- item 3,3
 
-  #---------------------------------[ Selectbox Without Group ]----------------------------------#
-  # TITLE            |  SUBTITLE                                                 | Initial Value #
-  #------------------+-----------------------------------------------------------+---------------#
-#
-#  "Generic",            "Unthemed AROMA Installer",                                    1,      #-- selected.0 = 1
-#  "MIUI Theme",         "MIUI Theme by mickey-r & amarullz",                           0,      #-- selected.0 = 2
-#  "ICS Theme",          "Ice Cream Sandwitch by DemonWav & amarullz",                  0,      #-- selected.0 = 3
-#  "MIUI 4 Theme",       "MIUI 4/ICS Theme by amarullz & Lennox",                       0,      #-- selected.0 = 4
-#  "Sense Theme",        "HTC Sense Theme by amarullz",                                 0       #-- selected.0 = 5
-#
-  #--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
+	"Root",			"Install Root acces, or not",					2,	#-- Group 4
+	"Root your device",	"Use Long Press Home as Menu Button",				1,	#-- item 4.1
+	"Skip",			"I don't want to root my device",				0,	#-- item 4.1
+	
+	"Gapps",		"Select which flavor to use",					2,	#-- Group 5
+	"Minimal",		"Installs the basic Gapps to get market working",		1,	#-- item 5.1
+	"Full",			"Installs the full Gapps package",				0,	#-- item 5.2
+	"Skip",			"I don't want to install this mod",				0,	#-- item 5.3
 
+	"Xorzone mods",		"Mod jar files to, remap the keys and force orientation",	2,	#-- item 6.1
+	"Install Xorzone's mods", "",								1,	#-- item 6.2
+	"Skip",			"I don't want to install this mod",				0,	#-- item 6.3
 
-   "Update",		"Please update to the latest distro if you haven't allready",	2,		
-   "Install 1.1.2",	"Update system to 1.1.2",					0,
-   "Skip",		"I have allready updated, no need for this.",			1,
-   
-  ##################
-#   "Kernel",		"Please select what kernel to use",				2,		
-#   "IcyKernel",		"Extremely undervolted and undercloked -+Multitouch+Host-",	0,
-#   "Balanced Kernel",	"Undervolted and mildly underclocked -+Multitouch+Host-",	0,
-#   "Undervolted Kernel","Stock clocks, mildly undervolted -+Multitouch+Host-",		0,
-#   "Overclocked Kernel","300-600-1000, mildly undervolted -+Multitouch+Host-",		0,
-#   "Multitouch+Host",	"Enabled multitouch + Host mode",				0,
-#   "Stock",		"Stock kernel",							1,
-  ##################
+	#--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
 
-   "ADB",		"Please select ADB flavour",					2,		
-   "ADB Usb",		"ADB through Usb (Secure)",					1,
-   "ADB Wifi",		"ADB through Wifi (Insecure if used on open Wifi)",		0,
-   "Skip",		"I don't want to enable ADB (I'll enable it with ADB widget)",	0,
+);
 
-  ##################
-   "Root",		"Install Root acces, or not",					2,
-   "Root your device",	"Use Long Press Home as Menu Button",				1,
-   "Skip",		"I don't want to root my device",				0,
+fontresload( "0", "ttf/Roboto.ttf", "14" );
+checkbox(
+	"Choose your apps.",			#-- Title
+	"Select the program want to installed.\n"+
+	"Select an item in the list below to change how a feature is installed.",		#-- Sub Title 
+	"@personalize",				#-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.personalize.png
+	"customize.prop",			#-- Will be saved in /tmp/aroma/customize.prop
 
-  ##########################
-   "Gapps",		"Select which flavor to use",					2,
-   "Minimal",		"Installs the basic Gapps to get market working",		1,
-   "Full",		"Installs the full Gapps package",				0,
-   "Skip",		"I don't want to install this mod",				0,
+	#---------------------------------------[ Checkbox With Group ]------------------------------------#
+	# TITLE            |  SUBTITLE                                                     | Initial Value #
+	#------------------+---------------------------------------------------------------+---------------#
+	###############if file_getprop("/tmp/aroma/personalize.prop","selected.1") == "1 then###############
 
-  ############################
-   "Xorzone mods",	"Mod jar files to, remap the keys and force orientation",	2,
-   "Install Xorzone's apps and mods","",						1,
-   "Skip",		"I don't want to install this mod",				0,
-
-  ############################
-   "Apps",		"Select which apps you want to install",			2,
-   "ADW",		"launcher", 							1,
-   "Software keys", 	"", 								1,
-   "adbWireless", 	"",							 	1,
-   "Minimalistblack", 	"", 								1,
+	"Applications",		"",								2,	#-- Group 1. key = "item.1.x"
+	"ADW",			"launcher",							1,      #-- item.1.1 = Selected by default
+	"Software keys",	"",								1,      #-- item.1.2 = Selected by default
+	"adbWireless",		"",								0,      #-- item.1.3 = Un-Selected by default
+	"Minimalistblack",	"",								0,      #-- item.1.4 = Un-Selected by default
 );
 
 
 fontresload( "0", "ttf/Roboto.ttf", "14" );
 install(
-  "Installing",
-  "Now flashing NST-AROMA-AIO...\nPlease Wait...",
-  "@install"
+	"Installing",
+	"Now flashing NST-AROMA-AIO...\nPlease Wait...",
+	"@install"
 );
 
 splash(4000, "thanks");
 
-# Set Next Text fo Finish
-ini_set("text_next", "Finish");
+ini_set("text_next", "Finish");			# Set Next Text fo Finish
 
 
 
